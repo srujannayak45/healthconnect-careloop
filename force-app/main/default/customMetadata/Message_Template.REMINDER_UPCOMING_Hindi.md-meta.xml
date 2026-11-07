@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>REMINDER_UPCOMING Hindi</label>
+    <protected>false</protected>
+    <values>
+        <field>Body__c</field>
+        <value xsi:type="xsd:string">नमस्ते {name}, आपका {activity} {date} को होना है। कृपया {place} आएँ या HealthConnect पोर्टल पर जवाब दें।</value>
+    </values>
+    <values>
+        <field>Language__c</field>
+        <value xsi:type="xsd:string">Hindi</value>
+    </values>
+    <values>
+        <field>Subject__c</field>
+        <value xsi:type="xsd:string">याद दिलाना: {activity} - {date}</value>
+    </values>
+    <values>
+        <field>Template_Key__c</field>
+        <value xsi:type="xsd:string">REMINDER_UPCOMING</value>
+    </values>
+</CustomMetadata>

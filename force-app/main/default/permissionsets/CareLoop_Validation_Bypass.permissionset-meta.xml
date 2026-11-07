@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customPermissions>
+        <enabled>true</enabled>
+        <name>CareLoop_Bypass_Validation</name>
+    </customPermissions>
+    <description>Temporarily assign for bulk data loads only. Skips CareLoop validation rules.</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>CareLoop Validation Bypass</label>
+</PermissionSet>

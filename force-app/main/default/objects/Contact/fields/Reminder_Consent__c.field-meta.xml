@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Reminder_Consent__c</fullName>
+    <defaultValue>false</defaultValue>
+    <inlineHelpText>Mirror of the Consent Ledger. Changed only through consent capture.</inlineHelpText>
+    <label>Reminder Consent</label>
+    <type>Checkbox</type>
+</CustomField>

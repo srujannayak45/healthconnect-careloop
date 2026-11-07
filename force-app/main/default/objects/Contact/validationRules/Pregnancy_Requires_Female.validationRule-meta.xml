@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Pregnancy_Requires_Female</fullName>
+    <active>true</active>
+    <errorConditionFormula>NOT($Permission.CareLoop_Bypass_Validation) &amp;&amp;
+AND(Is_Pregnant__c, NOT(ISPICKVAL(Gender__c, "Female")))</errorConditionFormula>
+    <errorDisplayField>Is_Pregnant__c</errorDisplayField>
+    <errorMessage>Pregnancy can only be recorded for a female patient.</errorMessage>
+</ValidationRule>

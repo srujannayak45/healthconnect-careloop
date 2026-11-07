@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Completed_On_Time__c</fullName>
+    <formula>IF(AND(ISPICKVAL(Status__c, "Completed"), NOT(ISBLANK(Completed_Date__c)), NOT(ISBLANK(Due_Date__c)), Completed_Date__c &lt;= Due_Date__c + 7), 1, 0)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>1 when completed within 7 days of the due date.</inlineHelpText>
+    <label>Completed On Time</label>
+    <precision>1</precision>
+    <scale>0</scale>
+    <type>Number</type>
+</CustomField>

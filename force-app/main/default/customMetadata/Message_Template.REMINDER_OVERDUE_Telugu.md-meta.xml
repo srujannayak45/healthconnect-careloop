@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>REMINDER_OVERDUE Telugu</label>
+    <protected>false</protected>
+    <values>
+        <field>Body__c</field>
+        <value xsi:type="xsd:string">నమస్తే {name}, మీ {activity} {date} న జరగాల్సింది, ఇంకా పూర్తి కాలేదు. మీ ఆరోగ్య కార్యకర్త మిమ్మల్ని సంప్రదిస్తారు. HealthConnect పోర్టల్‌లో స్పందించవచ్చు.</value>
+    </values>
+    <values>
+        <field>Language__c</field>
+        <value xsi:type="xsd:string">Telugu</value>
+    </values>
+    <values>
+        <field>Subject__c</field>
+        <value xsi:type="xsd:string">ఆలస్యం: {activity}</value>
+    </values>
+    <values>
+        <field>Template_Key__c</field>
+        <value xsi:type="xsd:string">REMINDER_OVERDUE</value>
+    </values>
+</CustomMetadata>

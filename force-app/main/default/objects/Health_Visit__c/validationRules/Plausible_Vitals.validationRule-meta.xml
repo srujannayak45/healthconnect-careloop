@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Plausible_Vitals</fullName>
+    <active>true</active>
+    <errorConditionFormula>NOT($Permission.CareLoop_Bypass_Validation) &amp;&amp;
+OR(
+ AND(NOT(ISBLANK(BP_Systolic__c)), OR(BP_Systolic__c &lt; 60, BP_Systolic__c &gt; 260)),
+ AND(NOT(ISBLANK(SpO2__c)), OR(SpO2__c &lt; 50, SpO2__c &gt; 100)),
+ AND(NOT(ISBLANK(Temperature__c)), OR(Temperature__c &lt; 30, Temperature__c &gt; 45)),
+ AND(NOT(ISBLANK(Pulse__c)), OR(Pulse__c &lt; 20, Pulse__c &gt; 250))
+)</errorConditionFormula>
+    <errorMessage>One or more vitals are outside a plausible range. Please re-check the reading.</errorMessage>
+</ValidationRule>

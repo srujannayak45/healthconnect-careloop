@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Delivery_Date_Requires_Pregnancy</fullName>
+    <active>true</active>
+    <errorConditionFormula>NOT($Permission.CareLoop_Bypass_Validation) &amp;&amp;
+AND(NOT(ISBLANK(Expected_Delivery_Date__c)), NOT(Is_Pregnant__c))</errorConditionFormula>
+    <errorDisplayField>Expected_Delivery_Date__c</errorDisplayField>
+    <errorMessage>Tick Pregnant before entering an expected delivery date.</errorMessage>
+</ValidationRule>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Health_Worker__c</fullName>
+    <inlineHelpText>Set automatically to the user who records the visit.</inlineHelpText>
+    <label>Health Worker</label>
+    <referenceTo>User</referenceTo>
+    <relationshipLabel>Visits Conducted</relationshipLabel>
+    <relationshipName>Visits_Conducted</relationshipName>
+    <required>false</required>
+    <type>Lookup</type>
+</CustomField>

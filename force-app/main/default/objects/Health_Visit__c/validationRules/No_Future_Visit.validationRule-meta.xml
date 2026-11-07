@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>No_Future_Visit</fullName>
+    <active>true</active>
+    <errorConditionFormula>NOT($Permission.CareLoop_Bypass_Validation) &amp;&amp;
+Visit_Date__c &gt; NOW() + (1/24)</errorConditionFormula>
+    <errorDisplayField>Visit_Date__c</errorDisplayField>
+    <errorMessage>A visit cannot be recorded in the future.</errorMessage>
+</ValidationRule>

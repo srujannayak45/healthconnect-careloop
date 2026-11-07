@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Final_Recommendation_Locked</fullName>
+    <active>true</active>
+    <errorConditionFormula>NOT($Permission.CareLoop_Bypass_Validation) &amp;&amp;
+AND(NOT(ISNEW()), ISPICKVAL(PRIORVALUE(Status__c), "Final"))</errorConditionFormula>
+    <errorMessage>A finalised recommendation cannot be changed. Create a new recommendation instead.</errorMessage>
+</ValidationRule>

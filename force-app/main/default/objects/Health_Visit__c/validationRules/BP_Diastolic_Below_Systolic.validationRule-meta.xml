@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>BP_Diastolic_Below_Systolic</fullName>
+    <active>true</active>
+    <errorConditionFormula>NOT($Permission.CareLoop_Bypass_Validation) &amp;&amp;
+AND(NOT(ISBLANK(BP_Systolic__c)), NOT(ISBLANK(BP_Diastolic__c)), BP_Diastolic__c &gt;= BP_Systolic__c)</errorConditionFormula>
+    <errorDisplayField>BP_Diastolic__c</errorDisplayField>
+    <errorMessage>Diastolic BP must be lower than systolic BP.</errorMessage>
+</ValidationRule>

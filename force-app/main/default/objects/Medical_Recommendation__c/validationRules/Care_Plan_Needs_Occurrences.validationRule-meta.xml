@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Care_Plan_Needs_Occurrences</fullName>
+    <active>true</active>
+    <errorConditionFormula>NOT($Permission.CareLoop_Bypass_Validation) &amp;&amp;
+AND(NOT(ISBLANK(Check_Up_Interval_Days__c)), OR(ISBLANK(Check_Up_Occurrences__c), Check_Up_Occurrences__c &lt; 1))</errorConditionFormula>
+    <errorDisplayField>Check_Up_Occurrences__c</errorDisplayField>
+    <errorMessage>Enter how many check-ups to schedule.</errorMessage>
+</ValidationRule>

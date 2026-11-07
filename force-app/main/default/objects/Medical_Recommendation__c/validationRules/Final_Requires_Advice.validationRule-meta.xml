@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Final_Requires_Advice</fullName>
+    <active>true</active>
+    <errorConditionFormula>NOT($Permission.CareLoop_Bypass_Validation) &amp;&amp;
+AND(ISPICKVAL(Status__c, "Final"), ISBLANK(Advice__c))</errorConditionFormula>
+    <errorDisplayField>Advice__c</errorDisplayField>
+    <errorMessage>Add advice for the patient before finalising.</errorMessage>
+</ValidationRule>

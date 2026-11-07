@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Blood sugar monitoring</label>
+    <protected>false</protected>
+    <values>
+        <field>Active__c</field>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
+    <values>
+        <field>Activity_Name__c</field>
+        <value xsi:type="xsd:string">Blood sugar monitoring</value>
+    </values>
+    <values>
+        <field>Activity_Type__c</field>
+        <value xsi:type="xsd:string">Routine Check-up</value>
+    </values>
+    <values>
+        <field>Anchor__c</field>
+        <value xsi:type="xsd:string">Registration Date</value>
+    </values>
+    <values>
+        <field>Dose_Number__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Eligibility__c</field>
+        <value xsi:type="xsd:string">Diabetes</value>
+    </values>
+    <values>
+        <field>Occurrences__c</field>
+        <value xsi:type="xsd:double">2</value>
+    </values>
+    <values>
+        <field>Offset_Days__c</field>
+        <value xsi:type="xsd:double">30</value>
+    </values>
+    <values>
+        <field>Repeat_Every_Days__c</field>
+        <value xsi:type="xsd:double">90</value>
+    </values>
+</CustomMetadata>

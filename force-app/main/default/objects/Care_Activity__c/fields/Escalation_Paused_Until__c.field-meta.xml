@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Escalation_Paused_Until__c</fullName>
+    <inlineHelpText>Set when the patient replies with a date they will attend.</inlineHelpText>
+    <label>Escalation Paused Until</label>
+    <required>false</required>
+    <type>Date</type>
+</CustomField>

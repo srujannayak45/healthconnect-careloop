@@ -1,0 +1,8 @@
+.sfdx/
+.sf/
+.localdevserver/
+node_modules/
+coverage/
+*.log
+.DS_Store
+.vscode/settings.json

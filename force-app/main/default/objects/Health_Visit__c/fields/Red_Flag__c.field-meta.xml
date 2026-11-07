@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Red_Flag__c</fullName>
+    <defaultValue>false</defaultValue>
+    <inlineHelpText>Set by CareLoop when vitals cross the clinical thresholds in Care Rules.</inlineHelpText>
+    <label>Red Flag</label>
+    <type>Checkbox</type>
+</CustomField>

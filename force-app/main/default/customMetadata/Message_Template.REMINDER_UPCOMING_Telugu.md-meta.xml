@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>REMINDER_UPCOMING Telugu</label>
+    <protected>false</protected>
+    <values>
+        <field>Body__c</field>
+        <value xsi:type="xsd:string">నమస్తే {name}, మీ {activity} {date} న చేయించుకోవాలి. దయచేసి {place} కు రండి లేదా HealthConnect పోర్టల్‌లో స్పందించండి.</value>
+    </values>
+    <values>
+        <field>Language__c</field>
+        <value xsi:type="xsd:string">Telugu</value>
+    </values>
+    <values>
+        <field>Subject__c</field>
+        <value xsi:type="xsd:string">గుర్తు: {activity} - {date}</value>
+    </values>
+    <values>
+        <field>Template_Key__c</field>
+        <value xsi:type="xsd:string">REMINDER_UPCOMING</value>
+    </values>
+</CustomMetadata>
