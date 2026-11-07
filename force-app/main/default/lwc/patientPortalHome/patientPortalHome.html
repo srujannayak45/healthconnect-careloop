@@ -1,0 +1,106 @@
+<template>
+    <div class="portal">
+        <template lwc:if={busy}>
+            <lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
+        </template>
+        <template lwc:if={error}>
+            <div class="banner banner-error">{error}</div>
+        </template>
+        <template lwc:if={notice}>
+            <div class="banner banner-ok">{notice}</div>
+        </template>
+        <template lwc:if={home}>
+            <header class="hello">
+                <h1>Namaste {home.firstName}</h1>
+                <p>Your care in one place · {home.village}</p>
+            </header>
+
+            <section>
+                <h2>Upcoming care</h2>
+                <template for:each={people} for:item="person">
+                    <div key={person.contactId} class="person">
+                        <h3>{person.name} <span class="relation">{person.relation}</span></h3>
+                        <template lwc:if={person.hasOpen}>
+                            <template for:each={person.open} for:item="item">
+                                <div key={item.id} class="care">
+                                    <div class="care-head">
+                                        <span class="care-name">{item.name}</span>
+                                        <span class={item.pillClass}>{item.status}</span>
+                                    </div>
+                                    <div class="care-meta">Due <lightning-formatted-date-time value={item.dueDate} year="numeric" month="short" day="numeric"></lightning-formatted-date-time> {item.overdueText}</div>
+                                    <div lwc:if={item.answered} class="answered">{item.answered}</div>
+                                    <div class="buttons">
+                                        <lightning-button label="I will come" variant="brand" data-id={item.id} onclick={handleWillAttend}></lightning-button>
+                                        <lightning-button label="Another date" data-id={item.id} onclick={handleShowDate}></lightning-button>
+                                        <lightning-button label="Done elsewhere" data-id={item.id} onclick={handleDoneElsewhere}></lightning-button>
+                                        <lightning-button label="I need help" variant="destructive-text" data-id={item.id} onclick={handleNeedHelp}></lightning-button>
+                                    </div>
+                                    <template lwc:if={item.showDate}>
+                                        <div class="date-row">
+                                            <lightning-input type="date" label="Date that suits you" min={today} onchange={handleDateChange}></lightning-input>
+                                            <lightning-button label="Send" variant="brand" data-id={item.id} onclick={handleSendDate}></lightning-button>
+                                        </div>
+                                    </template>
+                                </div>
+                            </template>
+                        </template>
+                        <template lwc:else>
+                            <p class="muted">Nothing due. Well done!</p>
+                        </template>
+                    </div>
+                </template>
+            </section>
+
+            <section>
+                <h2>Messages</h2>
+                <template lwc:if={hasMessages}>
+                    <template for:each={messages} for:item="m">
+                        <div key={m.id} class={m.cls}>
+                            <div class="msg-head">
+                                <strong>{m.subject}</strong>
+                                <span class="muted"><lightning-formatted-date-time value={m.sentOn} month="short" day="numeric" hour="2-digit" minute="2-digit"></lightning-formatted-date-time></span>
+                            </div>
+                            <p class="msg-body">{m.body}</p>
+                            <template lwc:if={m.unread}>
+                                <lightning-button variant="base" label="Mark as read" data-id={m.id} onclick={handleRead}></lightning-button>
+                            </template>
+                        </div>
+                    </template>
+                </template>
+                <template lwc:else>
+                    <p class="muted">No messages yet.</p>
+                </template>
+            </section>
+
+            <section>
+                <h2>Visits and doctor's advice</h2>
+                <template lwc:if={hasVisits}>
+                    <template for:each={visits} for:item="v">
+                        <div key={v.id} class="visit">
+                            <div class="msg-head">
+                                <strong>{v.personName} · {v.visitType}</strong>
+                                <span class="muted"><lightning-formatted-date-time value={v.visitDate} year="numeric" month="short" day="numeric"></lightning-formatted-date-time></span>
+                            </div>
+                            <div class="muted">{v.outcome} {v.vitals}</div>
+                            <template lwc:if={v.hasAdvice}>
+                                <div class="advice">
+                                    <div><strong>Doctor's advice</strong> ({v.doctorName}): {v.doctorAdvice}</div>
+                                    <div lwc:if={v.medicationAdvice}><strong>Medicines:</strong> {v.medicationAdvice}</div>
+                                </div>
+                            </template>
+                        </div>
+                    </template>
+                </template>
+                <template lwc:else>
+                    <p class="muted">No visits recorded yet.</p>
+                </template>
+            </section>
+
+            <section class="consent">
+                <h2>Your choices</h2>
+                <p><strong>{consentLabel}</strong> ({home.language}, {home.channel}). You can change this at any time; every change is recorded in a tamper-evident consent ledger.</p>
+                <lightning-button label={consentButton} onclick={handleConsent}></lightning-button>
+            </section>
+        </template>
+    </div>
+</template>

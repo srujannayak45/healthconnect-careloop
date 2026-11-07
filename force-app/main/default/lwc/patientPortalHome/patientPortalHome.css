@@ -1,0 +1,26 @@
+.portal { max-width: 760px; margin: 0 auto; padding: 1rem; font-size: 1rem; position: relative; }
+.hello h1 { font-size: 1.6rem; font-weight: 700; color: #0b6e6e; }
+.hello p { color: #5b6476; margin-bottom: 1rem; }
+section { margin: 1.25rem 0; }
+h2 { font-size: 1.15rem; font-weight: 700; border-bottom: 2px solid #0b6e6e; padding-bottom: 0.25rem; margin-bottom: 0.75rem; }
+h3 { font-size: 1rem; font-weight: 700; margin: 0.5rem 0; }
+.relation { font-size: 0.75rem; font-weight: 400; color: #5b6476; margin-left: 0.4rem; }
+.person { margin-bottom: 1rem; }
+.care, .msg, .visit { border: 1px solid #d9dee7; border-radius: 0.5rem; padding: 0.75rem; margin-bottom: 0.6rem; background: #fff; }
+.msg.unread { border-left: 4px solid #0b6e6e; background: #f3fbfa; }
+.care-head, .msg-head { display: flex; justify-content: space-between; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+.care-name { font-weight: 700; }
+.care-meta, .muted { color: #5b6476; font-size: 0.85rem; }
+.answered { margin-top: 0.3rem; font-size: 0.85rem; color: #1e7b3c; }
+.buttons { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.6rem; }
+.date-row { display: flex; align-items: flex-end; gap: 0.5rem; margin-top: 0.5rem; }
+.pill { font-size: 0.7rem; font-weight: 700; padding: 0.1rem 0.55rem; border-radius: 1rem; color: #fff; background: #706e6b; }
+.pill-red { background: #ba0517; }
+.pill-amber { background: #dd7a01; }
+.pill-blue { background: #0176d3; }
+.pill-green { background: #2e844a; }
+.msg-body { margin: 0.4rem 0; white-space: pre-line; }
+.advice { margin-top: 0.4rem; padding: 0.5rem; background: #f3f8fd; border-radius: 0.35rem; }
+.banner { padding: 0.6rem 0.8rem; border-radius: 0.4rem; margin-bottom: 0.75rem; }
+.banner-error { background: #fdecea; color: #8c1d18; }
+.banner-ok { background: #e5f4ea; color: #1e5e33; }

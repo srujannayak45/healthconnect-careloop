@@ -1,0 +1,43 @@
+<template>
+    <lightning-card title="Consent ledger" icon-name="standard:shield">
+        <div slot="actions">
+            <lightning-button-group>
+                <lightning-button label="Verify integrity" onclick={handleVerify}></lightning-button>
+                <lightning-button label="Record consent" onclick={toggleForm}></lightning-button>
+            </lightning-button-group>
+        </div>
+        <div class="slds-p-horizontal_medium">
+            <template lwc:if={error}><p class="slds-text-color_error">{error}</p></template>
+            <template lwc:if={verification}><div class={verifyClass}>{verification.message}</div></template>
+            <template lwc:if={showForm}>
+                <div class="form">
+                    <lightning-combobox name="purpose" label="Purpose" value={purpose} options={purposeOptions} onchange={handleChange}></lightning-combobox>
+                    <lightning-radio-group name="action" label="Decision" options={actionOptions} value={action} type="button" onchange={handleChange}></lightning-radio-group>
+                    <lightning-combobox name="channel" label="How it was given" value={channel} options={channelOptions} onchange={handleChange}></lightning-combobox>
+                    <lightning-input name="reason" label="Note (optional)" value={reason} onchange={handleChange}></lightning-input>
+                    <lightning-button class="save" label="Add to ledger" variant="brand" onclick={handleSave}></lightning-button>
+                </div>
+            </template>
+            <div class="states">
+                <template for:each={consents} for:item="c">
+                    <span key={c.Id} class={c.cls}>{c.Purpose__c}: {c.Status__c}</span>
+                </template>
+            </div>
+            <template lwc:if={hasEvents}>
+                <ol class="chain">
+                    <template for:each={events} for:item="e">
+                        <li key={e.Id}>
+                            <div><strong>#{e.Sequence__c} {e.Action__c}</strong> · {e.Purpose__c} · {e.Channel__c}</div>
+                            <div class="muted">
+                                <lightning-formatted-date-time value={e.Event_Time__c} year="numeric" month="short" day="numeric" hour="2-digit" minute="2-digit"></lightning-formatted-date-time>
+                                · {e.by}
+                            </div>
+                            <div class="hash">hash {e.shortHash} ← previous {e.shortPrev}</div>
+                        </li>
+                    </template>
+                </ol>
+            </template>
+            <template lwc:else><p class="muted">No consent recorded yet.</p></template>
+        </div>
+    </lightning-card>
+</template>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <FlexiPage xmlns="http://soap.sforce.com/2006/04/metadata">
-    <description>CareLoop Patient page: details and related lists, with the explainable priority card.</description>
+    <description>CareLoop Patient page: details and related lists, with the explainable priority card and the consent ledger.</description>
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
@@ -32,6 +32,12 @@
             <componentInstance>
                 <componentName>patientPriorityCard</componentName>
                 <identifier>c_patientPriorityCard</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentName>consentLedger</componentName>
+                <identifier>c_consentLedger</identifier>
             </componentInstance>
         </itemInstances>
         <name>sidebar</name>

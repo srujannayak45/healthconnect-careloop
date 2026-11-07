@@ -1,0 +1,12 @@
+.states { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0.4rem 0 0.6rem; }
+.state { font-size: 0.75rem; padding: 0.15rem 0.5rem; border-radius: 0.8rem; }
+.state.on { background: #e5f4ea; color: #1e5e33; }
+.state.off { background: #fdecea; color: #8c1d18; }
+.chain li { border-left: 2px solid #0b6e6e; padding: 0.2rem 0 0.5rem 0.6rem; margin-left: 0.3rem; }
+.hash { font-family: monospace; font-size: 0.72rem; color: #5b6476; }
+.muted { color: #706e6b; font-size: 0.8rem; }
+.verify { padding: 0.5rem; border-radius: 0.3rem; margin-bottom: 0.5rem; font-weight: 600; }
+.verify.ok { background: #e5f4ea; color: #1e5e33; }
+.verify.bad { background: #fdecea; color: #8c1d18; }
+.form { border: 1px solid #d9dee7; border-radius: 0.3rem; padding: 0.6rem; margin-bottom: 0.6rem; }
+.save { display: block; margin-top: 0.5rem; }
