@@ -1,0 +1,29 @@
+<template>
+    <lightning-card title="Why this patient?" icon-name="standard:goals">
+        <lightning-button slot="actions" label="Save now" onclick={handleSave}></lightning-button>
+        <div class="slds-p-horizontal_medium">
+            <template lwc:if={loading}>
+                <lightning-spinner alternative-text="Calculating" size="small"></lightning-spinner>
+            </template>
+            <template lwc:if={error}>
+                <p class="slds-text-color_error">{error}</p>
+            </template>
+            <template lwc:if={live}>
+                <div class="head">
+                    <span class={levelClass}>{live.level}</span>
+                    <span class="score">{live.score}<small> points</small></span>
+                    <span class="gaps">{live.openGaps} open gap(s) · {live.overdue} overdue</span>
+                </div>
+                <div class="nba"><strong>Next best action:</strong> {live.nextBestAction}</div>
+                <template lwc:if={hasReasons}>
+                    <ul class="reasons">
+                        <template for:each={reasons} for:item="r">
+                            <li key={r.key}><span class="pts">{r.label}</span>{r.text}</li>
+                        </template>
+                    </ul>
+                </template>
+                <p class="foot">Live score from CareLoop's configured rules. {storedLine}</p>
+            </template>
+        </div>
+    </lightning-card>
+</template>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomNotificationType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customNotifTypeName>CareLoop Alert</customNotifTypeName>
+    <description>Bell notifications from CareLoop: red-flag visits for doctors, overdue care for health workers, escalations for supervisors, patient requests for help.</description>
+    <desktop>true</desktop>
+    <masterLabel>CareLoop Alert</masterLabel>
+    <mobile>true</mobile>
+</CustomNotificationType>

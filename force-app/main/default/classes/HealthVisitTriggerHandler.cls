@@ -13,7 +13,8 @@
  *     Last_Successful_Contact__c (latest Completed visit) and
  *     Failed_Outreach_Attempts__c (unsuccessful visits in the last 90 days)
  *
- * The live alert to doctors (platform event) is added in Phase 5.
+ *   - (Phase 4) alert doctors when a visit starts waiting for review: one bell notification
+ *     and a CareLoop_Alert__e platform event (CareLoopAlertService)
  */
 public with sharing class HealthVisitTriggerHandler extends TriggerHandler {
 
@@ -52,6 +53,8 @@ public with sharing class HealthVisitTriggerHandler extends TriggerHandler {
             patientIds.add(visit.Patient__c);
         }
         refreshContactHistory(patientIds);
+        // Phase 4: tell doctors at once when a visit starts waiting for review (bell + live event).
+        CareLoopAlertService.alertDoctorsForVisits((List<Health_Visit__c>) newRecords, null);
     }
 
     protected override void afterUpdate(List<SObject> newRecords, Map<Id, SObject> oldMap) {
@@ -63,6 +66,8 @@ public with sharing class HealthVisitTriggerHandler extends TriggerHandler {
             }
         }
         refreshContactHistory(patientIds);
+        // Phase 4: a corrected reading can turn a visit into a red flag after it was first saved.
+        CareLoopAlertService.alertDoctorsForVisits((List<Health_Visit__c>) newRecords, oldMap);
     }
 
     @TestVisible

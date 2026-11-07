@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Real-time CareLoop alerts (red-flag visits waiting for a doctor, escalations). Published after the transaction commits; the Doctor Review page listens to it.</description>
+    <eventType>HighVolume</eventType>
+    <label>CareLoop Alert</label>
+    <pluralLabel>CareLoop Alerts</pluralLabel>
+    <publishBehavior>PublishAfterCommit</publishBehavior>
+</CustomObject>

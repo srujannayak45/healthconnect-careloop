@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomTab xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Doctors' review queue (CareLoop Phase 4).</description>
+    <flexiPage>Doctor_Review</flexiPage>
+    <label>Doctor Review</label>
+    <motif>Custom1: Heart</motif>
+</CustomTab>

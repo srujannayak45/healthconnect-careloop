@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomApplication xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>View</actionName>
+        <comment>CareLoop record page</comment>
+        <content>CareLoop_Patient_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Flexipage</type>
+        <pageOrSobjectType>Contact</pageOrSobjectType>
+    </actionOverrides>
     <brand>
         <headerColor>#0B6E6E</headerColor>
         <shouldOverrideOrgTheme>true</shouldOverrideOrgTheme>
@@ -10,6 +19,7 @@
     <label>CareLoop</label>
     <navType>Standard</navType>
     <tabs>standard-home</tabs>
+    <tabs>Doctor_Review</tabs>
     <tabs>Care_Activity__c</tabs>
     <tabs>standard-Contact</tabs>
     <tabs>standard-Account</tabs>

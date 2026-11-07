@@ -1,0 +1,41 @@
+<template>
+    <lightning-card title="Doctor Review" icon-name="standard:approval">
+        <div slot="actions" class="actions">
+            <span class={liveClass}>{liveLabel}</span>
+            <lightning-button-icon icon-name="utility:refresh" alternative-text="Refresh" onclick={refresh}></lightning-button-icon>
+        </div>
+        <div class="slds-p-horizontal_medium">
+            <p class="summary">{countLabel}</p>
+            <template lwc:if={loading}>
+                <lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
+            </template>
+            <template lwc:if={error}>
+                <p class="slds-text-color_error">{error}</p>
+            </template>
+            <template lwc:if={hasItems}>
+                <template for:each={items} for:item="item">
+                    <div key={item.key} class={item.cardClass}>
+                        <div class="row">
+                            <span class={item.badgeClass}>{item.badge}</span>
+                            <a class="patient" data-id={item.patientId} onclick={openPatient}>{item.patientName}</a>
+                            <span class="muted">{item.where}</span>
+                            <span class="muted right">{item.waiting}</span>
+                        </div>
+                        <div class="reason">{item.reason}</div>
+                        <div class="row muted">
+                            <span>{item.vitals}</span>
+                            <span lwc:if={item.healthWorker}>Recorded by {item.healthWorker}</span>
+                            <lightning-formatted-date-time value={item.visitDate} year="numeric" month="short" day="2-digit"
+                                hour="2-digit" minute="2-digit"></lightning-formatted-date-time>
+                            <lightning-button class="right" label="Open visit" variant="brand-outline" data-id={item.visitId}
+                                onclick={openVisit}></lightning-button>
+                        </div>
+                    </div>
+                </template>
+            </template>
+            <template lwc:if={showEmpty}>
+                <p class="empty">Nothing is waiting for review.</p>
+            </template>
+        </div>
+    </lightning-card>
+</template>
