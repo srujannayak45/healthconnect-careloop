@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ReportType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <baseObject>Contact</baseObject>
+    <category>other</category>
+    <deployed>true</deployed>
+    <description>Patients by priority level, region and village.</description>
+    <label>CareLoop Patients</label>
+    <sections>
+            <columns>
+                <checkedByDefault>true</checkedByDefault>
+                <field>FirstName</field>
+                <table>Contact</table>
+            </columns>
+            <columns>
+                <checkedByDefault>true</checkedByDefault>
+                <field>LastName</field>
+                <table>Contact</table>
+            </columns>
+            <columns>
+                <checkedByDefault>true</checkedByDefault>
+                <field>Priority_Level__c</field>
+                <table>Contact</table>
+            </columns>
+            <columns>
+                <checkedByDefault>true</checkedByDefault>
+                <field>Priority_Score__c</field>
+                <table>Contact</table>
+            </columns>
+            <columns>
+                <checkedByDefault>true</checkedByDefault>
+                <field>Open_Care_Gaps__c</field>
+                <table>Contact</table>
+            </columns>
+            <columns>
+                <checkedByDefault>true</checkedByDefault>
+                <field>Overdue_Activities__c</field>
+                <table>Contact</table>
+            </columns>
+            <columns>
+                <checkedByDefault>true</checkedByDefault>
+                <field>Reminder_Consent__c</field>
+                <table>Contact</table>
+            </columns>
+            <columns>
+                <checkedByDefault>true</checkedByDefault>
+                <field>Region__c</field>
+                <table>Contact</table>
+            </columns>
+            <columns>
+                <checkedByDefault>true</checkedByDefault>
+                <field>Village_Name__c</field>
+                <table>Contact</table>
+            </columns>
+            <columns>
+                <checkedByDefault>false</checkedByDefault>
+                <field>CreatedDate</field>
+                <table>Contact</table>
+            </columns>
+        <masterLabel>CareLoop Patients</masterLabel>
+    </sections>
+</ReportType>

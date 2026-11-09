@@ -4,7 +4,10 @@
  * before insert : default Source (Manual) and the assignee (the patient's health worker);
  *                 set the status of open activities from the due date (Scheduled / Due / Overdue)
  *                 and Days_Overdue__c; start the escalation counters at zero.
- * before update : when an activity is closed (Completed, Missed, Cancelled) reset Days Overdue,
+ * before update : (Phase 7) when the supervisor APPROVES a closure request (approval process
+ *                 "Care Activity Closure"), set the status from the closure reason: Refused/Other ->
+ *                 Missed, anything else -> Cancelled; a REJECTED request sets the next action.
+ *                 When an activity is closed (Completed, Missed, Cancelled) reset Days Overdue,
  *                 the escalation pause and the next action; when an open activity is rescheduled
  *                 or re-opened, recalculate its status.
  * after update  : when an activity is closed, close its open follow-up Tasks (created by the
@@ -15,6 +18,8 @@
 public with sharing class CareActivityTriggerHandler extends TriggerHandler {
 
     public static final String SOURCE_MANUAL = 'Manual';
+    public static final String APPROVAL_APPROVED = 'Approved';
+    public static final String APPROVAL_REJECTED = 'Rejected';
 
     protected override void beforeInsert(List<SObject> newRecords) {
         List<Care_Activity__c> activities = (List<Care_Activity__c>) newRecords;
@@ -42,6 +47,7 @@ public with sharing class CareActivityTriggerHandler extends TriggerHandler {
         Date today = CareLoopClock.today();
         for (Care_Activity__c activity : (List<Care_Activity__c>) newRecords) {
             Care_Activity__c old = (Care_Activity__c) oldMap.get(activity.Id);
+            applyApprovalOutcome(activity, old);
             Boolean closedNow = CareRules.isClosed(activity.Status__c) && !CareRules.isClosed(old.Status__c);
             Boolean reopened = CareRules.isOpen(activity.Status__c) && CareRules.isClosed(old.Status__c);
             Boolean rescheduled = CareRules.isOpen(activity.Status__c) && activity.Due_Date__c != old.Due_Date__c;
@@ -64,6 +70,28 @@ public with sharing class CareActivityTriggerHandler extends TriggerHandler {
             }
         }
         closeOpenTasks(closedIds);
+    }
+
+    /**
+     * The approval process only changes Approval_Status__c (field update); the status follows here.
+     * This runs again when the approval's field update re-saves the record, which is why it lives in
+     * the trigger and not in a flow (flows are not re-run by approval field updates).
+     */
+    @TestVisible
+    private static void applyApprovalOutcome(Care_Activity__c activity, Care_Activity__c old) {
+        Boolean approvedNow = activity.Approval_Status__c == APPROVAL_APPROVED && old.Approval_Status__c != APPROVAL_APPROVED;
+        if (approvedNow && CareRules.isOpen(activity.Status__c)) {
+            activity.Status__c = closedStatusFor(activity.Closure_Reason__c);
+        }
+        Boolean rejectedNow = activity.Approval_Status__c == APPROVAL_REJECTED && old.Approval_Status__c != APPROVAL_REJECTED;
+        if (rejectedNow) {
+            activity.Next_Action__c = 'Closure rejected by the supervisor: continue to follow up';
+        }
+    }
+
+    public static String closedStatusFor(String closureReason) {
+        return (closureReason == null || closureReason == 'Refused' || closureReason == 'Other')
+            ? CareRules.STATUS_MISSED : CareRules.STATUS_CANCELLED;
     }
 
     private static void refreshOpenStatus(Care_Activity__c activity, Date today) {

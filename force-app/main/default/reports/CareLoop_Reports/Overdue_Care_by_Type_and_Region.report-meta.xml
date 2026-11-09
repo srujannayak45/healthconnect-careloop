@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>Care_Activity__c$Name</field>
+    </columns>
+    <columns>
+        <field>Care_Activity__c$Days_Overdue__c</field>
+    </columns>
+    <columns>
+        <field>Care_Activity__c$Escalation_Level__c</field>
+    </columns>
+    <description>Which kinds of care are missed, and where.</description>
+    <filter>
+        <criteriaItems>
+            <column>Care_Activity__c$Status__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Overdue</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>Care_Activity__c$Activity_Type__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>Care_Activity__c$Region__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Overdue care by type and region</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>CareLoop_Care_Activities__c</reportType>
+    <scope>organization</scope>
+    <showDetails>false</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>Care_Activity__c$Due_Date__c</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

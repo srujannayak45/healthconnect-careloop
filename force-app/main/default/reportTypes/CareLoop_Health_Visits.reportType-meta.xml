@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ReportType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <baseObject>Health_Visit__c</baseObject>
+    <category>other</category>
+    <deployed>true</deployed>
+    <description>Visits, outcomes and red flags by region and village.</description>
+    <label>CareLoop Health Visits</label>
+    <sections>
+            <columns>
+                <checkedByDefault>true</checkedByDefault>
+                <field>Name</field>
+                <table>Health_Visit__c</table>
+            </columns>
+            <columns>
+                <checkedByDefault>true</checkedByDefault>
+                <field>Visit_Date__c</field>
+                <table>Health_Visit__c</table>
+            </columns>
+            <columns>
+                <checkedByDefault>true</checkedByDefault>
+                <field>Visit_Type__c</field>
+                <table>Health_Visit__c</table>
+            </columns>
+            <columns>
+                <checkedByDefault>true</checkedByDefault>
+                <field>Visit_Outcome__c</field>
+                <table>Health_Visit__c</table>
+            </columns>
+            <columns>
+                <checkedByDefault>true</checkedByDefault>
+                <field>Red_Flag__c</field>
+                <table>Health_Visit__c</table>
+            </columns>
+            <columns>
+                <checkedByDefault>true</checkedByDefault>
+                <field>Red_Flag_Reason__c</field>
+                <table>Health_Visit__c</table>
+            </columns>
+            <columns>
+                <checkedByDefault>true</checkedByDefault>
+                <field>Review_Status__c</field>
+                <table>Health_Visit__c</table>
+            </columns>
+            <columns>
+                <checkedByDefault>true</checkedByDefault>
+                <field>BP_Systolic__c</field>
+                <table>Health_Visit__c</table>
+            </columns>
+            <columns>
+                <checkedByDefault>true</checkedByDefault>
+                <field>BP_Diastolic__c</field>
+                <table>Health_Visit__c</table>
+            </columns>
+            <columns>
+                <checkedByDefault>true</checkedByDefault>
+                <field>Region__c</field>
+                <table>Health_Visit__c</table>
+            </columns>
+            <columns>
+                <checkedByDefault>true</checkedByDefault>
+                <field>Village_Name__c</field>
+                <table>Health_Visit__c</table>
+            </columns>
+        <masterLabel>CareLoop Health Visits</masterLabel>
+    </sections>
+</ReportType>

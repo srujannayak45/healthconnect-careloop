@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ReportType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <baseObject>Notification__c</baseObject>
+    <category>other</category>
+    <deployed>true</deployed>
+    <description>Reminder outcomes by channel, language and region (outreach effectiveness).</description>
+    <label>CareLoop Notifications</label>
+    <sections>
+            <columns>
+                <checkedByDefault>true</checkedByDefault>
+                <field>Name</field>
+                <table>Notification__c</table>
+            </columns>
+            <columns>
+                <checkedByDefault>true</checkedByDefault>
+                <field>Channel__c</field>
+                <table>Notification__c</table>
+            </columns>
+            <columns>
+                <checkedByDefault>true</checkedByDefault>
+                <field>Language__c</field>
+                <table>Notification__c</table>
+            </columns>
+            <columns>
+                <checkedByDefault>true</checkedByDefault>
+                <field>Status__c</field>
+                <table>Notification__c</table>
+            </columns>
+            <columns>
+                <checkedByDefault>true</checkedByDefault>
+                <field>Escalation_Level__c</field>
+                <table>Notification__c</table>
+            </columns>
+            <columns>
+                <checkedByDefault>true</checkedByDefault>
+                <field>Skip_Reason__c</field>
+                <table>Notification__c</table>
+            </columns>
+            <columns>
+                <checkedByDefault>true</checkedByDefault>
+                <field>Sent_On__c</field>
+                <table>Notification__c</table>
+            </columns>
+            <columns>
+                <checkedByDefault>true</checkedByDefault>
+                <field>Read_On__c</field>
+                <table>Notification__c</table>
+            </columns>
+            <columns>
+                <checkedByDefault>true</checkedByDefault>
+                <field>Provider__c</field>
+                <table>Notification__c</table>
+            </columns>
+            <columns>
+                <checkedByDefault>true</checkedByDefault>
+                <field>Region__c</field>
+                <table>Notification__c</table>
+            </columns>
+            <columns>
+                <checkedByDefault>true</checkedByDefault>
+                <field>Village_Name__c</field>
+                <table>Notification__c</table>
+            </columns>
+        <masterLabel>CareLoop Notifications</masterLabel>
+    </sections>
+</ReportType>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>Health_Visit__c$Name</field>
+    </columns>
+    <columns>
+        <field>Health_Visit__c$Visit_Date__c</field>
+    </columns>
+    <columns>
+        <field>Health_Visit__c$Red_Flag_Reason__c</field>
+    </columns>
+    <columns>
+        <field>Health_Visit__c$Review_Status__c</field>
+    </columns>
+    <description>Dangerous readings found by health workers, by region and village.</description>
+    <filter>
+        <criteriaItems>
+            <column>Health_Visit__c$Red_Flag__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>1</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>Health_Visit__c$Region__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>Health_Visit__c$Village_Name__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Red-flag visits by region</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>CareLoop_Health_Visits__c</reportType>
+    <scope>organization</scope>
+    <showDetails>false</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>Health_Visit__c$Visit_Date__c</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>
