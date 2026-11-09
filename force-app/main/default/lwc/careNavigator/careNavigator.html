@@ -1,0 +1,110 @@
+<template>
+    <lightning-card title="Care Navigator" icon-name="standard:location">
+        <div slot="actions" class="actions">
+            <template lwc:if={showTeam}>
+                <lightning-combobox class="team" label="Plan of" variant="label-hidden" options={teamOptions} value={selectedWorker}
+                    placeholder="Team plans" onchange={handleWorkerChange}></lightning-combobox>
+            </template>
+            <lightning-button-icon icon-name="utility:refresh" alternative-text="Refresh" onclick={refresh}></lightning-button-icon>
+            <template lwc:if={showPlanButton}>
+                <lightning-button variant="brand" label={planButtonLabel} onclick={handlePlan}></lightning-button>
+            </template>
+        </div>
+        <div class="slds-p-horizontal_medium body">
+            <template lwc:if={loading}><lightning-spinner alternative-text="Planning" size="small"></lightning-spinner></template>
+            <template lwc:if={error}><p class="slds-text-color_error">{error}</p></template>
+
+            <template lwc:if={hasPlan}>
+                <div class="impact">
+                    <div class="tile main">
+                        <div class="big">{plan.gapsTargeted}</div>
+                        <div>care gaps in {stopCount} visits</div>
+                    </div>
+                    <div class="tile">
+                        <div class="big muted">{plan.baselineGaps}</div>
+                        <div>with a due-date list</div>
+                    </div>
+                    <div class="tile">
+                        <div class="big">{plan.distance} km</div>
+                        <div>route ({plan.baselineDistance} km by due date)</div>
+                    </div>
+                    <div class="tile gain">
+                        <div class="gain-text">{gainText}</div>
+                        <div>{distanceText}</div>
+                    </div>
+                </div>
+                <div class="progress">
+                    <span>{plan.workerName} · {plan.visited}/{stopCount} visits done · {plan.gapsClosed} gaps closed</span>
+                    <lightning-progress-bar value={progressPercent} size="large"></lightning-progress-bar>
+                </div>
+            </template>
+            <template lwc:else>
+                <div class="empty">
+                    <p><strong>No plan for today yet.</strong></p>
+                    <p>The Navigator groups your patients' due and overdue care by household, ranks the households by explainable urgency and builds a route that keeps you in one village before walking to the next.</p>
+                </div>
+            </template>
+
+            <template lwc:if={noStops}>
+                <p class="empty">No care is due in the next days. Nothing to plan.</p>
+            </template>
+
+            <template lwc:if={hasStops}>
+                <div class="layout">
+                    <div class="list">
+                        <template for:each={stops} for:item="stop">
+                            <div key={stop.id} class="stop">
+                                <div class="stop-head">
+                                    <span class="seq">{stop.sequence}</span>
+                                    <a data-id={stop.householdId} onclick={openRecord} class="hh">{stop.household}</a>
+                                    <span class={stop.statusClass}>{stop.status}</span>
+                                </div>
+                                <div class="meta">{stop.village} · {stop.distanceText} · urgency {stop.urgency} · {stop.closedText}</div>
+                                <ul class="reasons">
+                                    <template for:each={stop.reasonRows} for:item="reason">
+                                        <li key={reason.key}>{reason.text}</li>
+                                    </template>
+                                </ul>
+                                <div class="members">
+                                    <template for:each={stop.memberRows} for:item="m">
+                                        <div key={m.contactId} class="member">
+                                            <a data-id={m.contactId} onclick={openRecord}>{m.name}</a>
+                                            <span class="items">
+                                                <template for:each={m.itemRows} for:item="it"><span key={it.key} class="item">{it.text}</span></template>
+                                            </span>
+                                            <template lwc:if={stop.canEdit}>
+                                                <lightning-button variant="base" label="Record visit" data-id={m.contactId} onclick={recordVisit}></lightning-button>
+                                            </template>
+                                        </div>
+                                    </template>
+                                </div>
+                                <template lwc:if={stop.canEdit}>
+                                    <template lwc:if={stop.isPlanned}>
+                                        <div class="stop-actions">
+                                            <lightning-button label="Not at home" data-id={stop.id} onclick={markNotHome}></lightning-button>
+                                            <lightning-button label="Skip" data-id={stop.id} onclick={showSkip}></lightning-button>
+                                        </div>
+                                    </template>
+                                </template>
+                                <template lwc:if={stop.showSkip}>
+                                    <div class="skip">
+                                        <lightning-input label="Why skip this household?" onchange={handleSkipReason}></lightning-input>
+                                        <lightning-button variant="brand" label="Confirm skip" data-id={stop.id} onclick={confirmSkip}></lightning-button>
+                                    </div>
+                                </template>
+                            </div>
+                        </template>
+                    </div>
+                    <template lwc:if={hasMarkers}>
+                        <div class="map">
+                            <lightning-map map-markers={markers} zoom-level="11" list-view="hidden"></lightning-map>
+                        </div>
+                    </template>
+                </div>
+                <p class="foot">Urgency = explainable CareLoop priority points of the household members with care due. The due-date list
+                    is the same number of visits made one patient at a time in due-date order. Rule-based decision support: you can
+                    skip or re-order any visit.</p>
+            </template>
+        </div>
+    </lightning-card>
+</template>

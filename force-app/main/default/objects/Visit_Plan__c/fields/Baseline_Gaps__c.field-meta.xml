@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Baseline_Gaps__c</fullName>
+    <externalId>false</externalId>
+    <inlineHelpText>Gaps the same number of visits would reach by visiting patients in due-date order (the usual approach).</inlineHelpText>
+    <label>Due-Date List: Gaps</label>
+    <precision>4</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

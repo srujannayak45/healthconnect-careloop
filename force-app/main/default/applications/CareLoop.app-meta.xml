@@ -19,6 +19,7 @@
     <label>CareLoop</label>
     <navType>Standard</navType>
     <tabs>standard-home</tabs>
+    <tabs>Care_Navigator</tabs>
     <tabs>Doctor_Review</tabs>
     <tabs>Care_Activity__c</tabs>
     <tabs>standard-Contact</tabs>
@@ -26,6 +27,7 @@
     <tabs>Health_Visit__c</tabs>
     <tabs>Medical_Recommendation__c</tabs>
     <tabs>Village__c</tabs>
+    <tabs>Visit_Plan__c</tabs>
     <tabs>Notification__c</tabs>
     <tabs>Consent__c</tabs>
     <tabs>Consent_Event__c</tabs>
