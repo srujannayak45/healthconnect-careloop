@@ -1,0 +1,96 @@
+<template>
+    <lightning-card title="Community Watch" icon-name="standard:incident">
+        <div slot="actions" class="actions">
+            <lightning-button-icon icon-name="utility:refresh" alternative-text="Refresh" onclick={load}></lightning-button-icon>
+            <template lwc:if={overview}>
+                <template lwc:if={overview.canRunScan}>
+                    <lightning-button variant="brand" label="Run scan now" onclick={handleScan}></lightning-button>
+                </template>
+            </template>
+        </div>
+        <div class="slds-p-horizontal_medium">
+            <template lwc:if={loading}><lightning-spinner alternative-text="Loading" size="small"></lightning-spinner></template>
+            <template lwc:if={error}><p class="slds-text-color_error">{error}</p></template>
+            <p class="intro">
+                Each cell compares this week's count with the same village's previous four weeks.
+                <span class="legend alert">Alert</span> <span class="legend watch">Watch</span> <span class="legend normal">Normal</span>
+                <span class="legend nohistory">No history yet</span>
+                Signals flag unusual change for a person to verify. They are not diagnoses.
+            </p>
+            <template lwc:if={overview}>
+                <div class="grid-wrap">
+                    <table class="grid">
+                        <thead>
+                            <tr>
+                                <th>Village</th>
+                                <template for:each={headers} for:item="h"><th key={h.key}>{h.label}</th></template>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <template for:each={rows} for:item="row">
+                                <tr key={row.villageId}>
+                                    <td class="village">{row.villageName}<span class="region">{row.region}</span></td>
+                                    <template for:each={row.cellRows} for:item="c">
+                                        <td key={c.key} class={c.cls} title={c.title}>
+                                            <span class="count">{c.text}</span><span class="sub">{c.sub}</span>
+                                        </td>
+                                    </template>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 class="section">Signals under investigation ({openCount} open)</h3>
+                <template lwc:if={hasSignals}>
+                    <template for:each={signals} for:item="s">
+                        <div key={s.Id} class="signal">
+                            <div class="signal-head">
+                                <span class={s.badgeClass}>{s.Severity__c}</span>
+                                <strong>{s.Signal_Label__c}</strong> · {s.village}
+                                <span class={s.statusClass}>{s.Status__c}</span>
+                            </div>
+                            <div class="signal-body">
+                                <div class="chart" title="Weekly counts: previous weeks, then this week">
+                                    <template for:each={s.bars} for:item="b">
+                                        <div key={b.key} class="bar-wrap"><div class={b.cls} style={b.style}></div><span>{b.label}</span></div>
+                                    </template>
+                                </div>
+                                <div class="explain">
+                                    <p>{s.Explanation__c}</p>
+                                    <p class="guidance"><strong>Suggested verification:</strong> {s.Guidance__c}</p>
+                                </div>
+                            </div>
+                            <lightning-button variant="base" label="Details and review" data-id={s.Id} onclick={toggleDetails}></lightning-button>
+                            <template lwc:if={s.isOpen}>
+                                <div class="details">
+                                    <template lwc:if={s.Investigation_Notes__c}>
+                                        <pre class="notes">{s.Investigation_Notes__c}</pre>
+                                    </template>
+                                    <p class="muted">Contributing records you are allowed to see:</p>
+                                    <template lwc:if={hasEvidence}>
+                                        <ul class="evidence">
+                                            <template for:each={evidence} for:item="e">
+                                                <li key={e.key}><a data-id={e.recordId} onclick={openRecord}>{e.title}</a> · {e.eventDate} · {e.detail}</li>
+                                            </template>
+                                        </ul>
+                                    </template>
+                                    <template lwc:else><p class="muted">None visible to you (other regions' patients stay private).</p></template>
+                                    <template lwc:if={overview.canReview}>
+                                        <lightning-textarea label="What did you find?" value={notes} onchange={handleNotes}></lightning-textarea>
+                                        <div class="buttons">
+                                            <lightning-button label="Acknowledge (Investigating)" data-status="Investigating" onclick={setStatus}></lightning-button>
+                                            <lightning-button label="Close (follow-up done)" variant="brand" data-status="Closed" onclick={setStatus}></lightning-button>
+                                            <lightning-button label="Dismiss (not a real increase)" data-status="Dismissed" onclick={setStatus}></lightning-button>
+                                        </div>
+                                    </template>
+                                </div>
+                            </template>
+                        </div>
+                    </template>
+                </template>
+                <template lwc:else><p class="muted">No unusual signals recorded.</p></template>
+            </template>
+        </div>
+    </lightning-card>
+</template>

@@ -21,6 +21,7 @@
     <tabs>standard-home</tabs>
     <tabs>Care_Navigator</tabs>
     <tabs>Doctor_Review</tabs>
+    <tabs>Community_Watch</tabs>
     <tabs>Care_Activity__c</tabs>
     <tabs>standard-Contact</tabs>
     <tabs>standard-Account</tabs>
@@ -28,6 +29,7 @@
     <tabs>Medical_Recommendation__c</tabs>
     <tabs>Village__c</tabs>
     <tabs>Visit_Plan__c</tabs>
+    <tabs>Community_Signal__c</tabs>
     <tabs>Notification__c</tabs>
     <tabs>Consent__c</tabs>
     <tabs>Consent_Event__c</tabs>

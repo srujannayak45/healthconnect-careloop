@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>Community_Signal__c$Name</field>
+    </columns>
+    <columns>
+        <field>Community_Signal__c$Severity__c</field>
+    </columns>
+    <columns>
+        <field>Community_Signal__c$Status__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Community_Signal__c$Observed__c</field>
+    </columns>
+    <columns>
+        <field>Community_Signal__c$Expected__c</field>
+    </columns>
+    <columns>
+        <field>Community_Signal__c$Households__c</field>
+    </columns>
+    <columns>
+        <field>Community_Signal__c$Window_End__c</field>
+    </columns>
+    <description>CareLoop Sentinel: signals per village and signal type, with the number of events observed (village-level counts only, no patient data).</description>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>Community_Signal__c$Village__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>Community_Signal__c$Signal_Label__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Community signals by village</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>CareLoop_Community_Signals__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>Community_Signal__c$Window_End__c</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>
