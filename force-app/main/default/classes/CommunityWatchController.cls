@@ -158,32 +158,61 @@ public with sharing class CommunityWatchController {
                 activityIds.add(recordId);
             }
         }
-        if (!visitIds.isEmpty() && Schema.SObjectType.Health_Visit__c.isAccessible()) {
-            for (Health_Visit__c v : [SELECT Id, Visit_Date__c, Visit_Outcome__c, Symptoms__c, Temperature__c, SpO2__c, Patient__r.Name
-                                      FROM Health_Visit__c WHERE Id IN :visitIds WITH USER_MODE ORDER BY Visit_Date__c DESC]) {
-                Evidence e = new Evidence();
-                e.recordId = v.Id;
-                e.title = v.Patient__r.Name;
-                e.eventDate = v.Visit_Date__c.date();
-                List<String> parts = new List<String>{ v.Visit_Outcome__c };
-                if (v.Symptoms__c != null) { parts.add(v.Symptoms__c.replace(';', ', ')); }
-                if (v.Temperature__c != null) { parts.add(v.Temperature__c + ' C'); }
-                if (v.SpO2__c != null) { parts.add('SpO2 ' + v.SpO2__c.intValue() + '%'); }
-                e.detail = String.join(parts, ' · ');
-                out.add(e);
-            }
+
+if (!visitIds.isEmpty() && Schema.SObjectType.Health_Visit__c.isAccessible()) {
+    List<Health_Visit__c> visits =
+        (List<Health_Visit__c>) Database.queryWithBinds(
+            'SELECT Id, Visit_Date__c, Visit_Outcome__c, Symptoms__c, ' +
+            'Temperature__c, SpO2__c, Patient__r.Name ' +
+            'FROM Health_Visit__c WHERE Id IN :visitIds ' +
+            'ORDER BY Visit_Date__c DESC',
+            new Map<String, Object>{ 'visitIds' => visitIds },
+            AccessLevel.USER_MODE
+        );
+
+    for (Health_Visit__c v : visits) {
+        Evidence e = new Evidence();
+        e.recordId = v.Id;
+        e.title = v.Patient__r.Name;
+        e.eventDate = v.Visit_Date__c.date();
+
+        List<String> parts = new List<String>{ v.Visit_Outcome__c };
+
+        if (v.Symptoms__c != null) {
+            parts.add(v.Symptoms__c.replace(';', ', '));
         }
-        if (!activityIds.isEmpty() && Schema.SObjectType.Care_Activity__c.isAccessible()) {
-            for (Care_Activity__c a : [SELECT Id, Name, Due_Date__c, Status__c, Patient__r.Name FROM Care_Activity__c
-                                       WHERE Id IN :activityIds WITH USER_MODE ORDER BY Due_Date__c DESC]) {
-                Evidence e = new Evidence();
-                e.recordId = a.Id;
-                e.title = a.Patient__r.Name;
-                e.eventDate = a.Due_Date__c;
-                e.detail = a.Name + ' · ' + a.Status__c;
-                out.add(e);
-            }
+        if (v.Temperature__c != null) {
+            parts.add(v.Temperature__c + ' C');
         }
+        if (v.SpO2__c != null) {
+            parts.add('SpO2 ' + v.SpO2__c.intValue() + '%');
+        }
+
+        e.detail = String.join(parts, ' | ');
+        out.add(e);
+    }
+}
+
+if (!activityIds.isEmpty() && Schema.SObjectType.Care_Activity__c.isAccessible()) {
+    List<Care_Activity__c> activities =
+        (List<Care_Activity__c>) Database.queryWithBinds(
+            'SELECT Id, Name, Due_Date__c, Status__c, Patient__r.Name ' +
+            'FROM Care_Activity__c WHERE Id IN :activityIds ' +
+            'ORDER BY Due_Date__c DESC',
+            new Map<String, Object>{ 'activityIds' => activityIds },
+            AccessLevel.USER_MODE
+        );
+
+    for (Care_Activity__c a : activities) {
+        Evidence e = new Evidence();
+        e.recordId = a.Id;
+        e.title = a.Patient__r.Name;
+        e.eventDate = a.Due_Date__c;
+        e.detail = a.Name + ' | ' + a.Status__c;
+        out.add(e);
+    }
+}
+
         return out;
     }
 }

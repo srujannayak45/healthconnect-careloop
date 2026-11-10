@@ -201,19 +201,46 @@ public with sharing class SentinelService {
         if (flagged.isEmpty()) {
             return summary;
         }
-        Map<String, Community_Signal__c> recent = new Map<String, Community_Signal__c>();
-        for (Community_Signal__c c : [
-            SELECT Id, Village__c, Signal_Key__c, Status__c, Severity__c, Window_End__c
-            FROM Community_Signal__c
-            WHERE Village__c IN :villageIds AND Window_End__c >= :asOf.addDays(-(WINDOW_DAYS - 1))
-            WITH SYSTEM_MODE
-            ORDER BY Window_End__c DESC
-        ]) {
-            String key = c.Village__c + '|' + c.Signal_Key__c;
-            if (!recent.containsKey(key)) {
-                recent.put(key, c);
-            }
-        }
+
+Map<String, Community_Signal__c> recent = new Map<String, Community_Signal__c>();
+Set<String> candidateKeys = new Set<String>();
+
+// Build keys for the current scan date and previous six days.
+// This makes suppression depend on the scan date, not execution time.
+for (SignalResult r : flagged) {
+    for (Integer dayOffset = 0; dayOffset < WINDOW_DAYS; dayOffset++) {
+        Date scanDate = asOf.addDays(-dayOffset);
+
+        String alertKey = String.valueOf(r.villageId) + '-' +
+            r.signalKey + '-' +
+            Datetime.newInstance(
+                scanDate,
+                Time.newInstance(0, 0, 0, 0)
+            ).format('yyyyMMdd');
+
+        candidateKeys.add(alertKey);
+    }
+}
+
+// Find signals scanned within the seven-day window.
+// Alert_Key__c also handles signals whose observation window ends earlier
+// because of a configured grace period.
+for (Community_Signal__c c : [
+    SELECT Id, Village__c, Signal_Key__c, Status__c,
+           Severity__c, Window_End__c, Last_Scanned_On__c,
+           Alert_Key__c
+    FROM Community_Signal__c
+    WHERE Village__c IN :villageIds
+      AND Alert_Key__c IN :candidateKeys
+    WITH SYSTEM_MODE
+    ORDER BY Alert_Key__c DESC
+]) {
+    String key = c.Village__c + '|' + c.Signal_Key__c;
+
+    if (!recent.containsKey(key)) {
+        recent.put(key, c);
+    }
+}
         List<Community_Signal__c> toInsert = new List<Community_Signal__c>();
         List<Community_Signal__c> toUpdate = new List<Community_Signal__c>();
         List<SignalResult> toNotify = new List<SignalResult>();
@@ -435,7 +462,7 @@ public with sharing class SentinelService {
             Weekly_Counts__c = String.join(weekly, ',').left(120),
             Evidence_Ids__c = String.join(r.evidenceIds, ',').left(10000),
             Last_Scanned_On__c = System.now(),
-            Alert_Key__c = (r.villageId + '-' + r.signalKey + '-'
+            Alert_Key__c = (String.valueOf(r.villageId) + '-' + r.signalKey + '-'
                 + Datetime.newInstance(asOf, Time.newInstance(0, 0, 0, 0)).format('yyyyMMdd')).left(120)
         );
     }

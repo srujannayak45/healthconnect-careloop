@@ -34,7 +34,7 @@
         <field>Community_Signal__c$Severity__c</field>
         <sortOrder>Asc</sortOrder>
     </groupingsDown>
-    <name>Community signals by signal type and severity</name>
+    <name>Community signals by type</name>
     <params>
         <name>co</name>
         <value>1</value>
